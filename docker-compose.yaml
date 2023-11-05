@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  #  Mongoose Container Service
+
+  api:
+    build: .
+    ports:
+      - 5050:5050
+    environment:
+      MONGOOSE_URI: mongodb://db_container:27017/Vocab
+    depends_on:
+      - mongo_db
+
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    ports:
+      - 2717:27017
+    volumes:
+      - mongo_db:/data/db
+
+  #  Node Container Service
+
+volumes:
+  mongo_db: {}
